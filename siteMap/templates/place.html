@@ -1,0 +1,84 @@
+{% load static %}
+
+{% include "base.html" with title="Место" hrefs4="active" %}
+<link rel="stylesheet" href="{% static '/css/place.css' %}" media="screen">
+
+<div class="main">
+    <div class="block_title">
+        <div class="return" onclick="window.history.go(-1)">
+            <img src="/static/create_images/free-icon-rewind-5542199.png" alt="">
+        </div>
+        <div class="title_place">
+            <h1>{{ data.name }}</h1>
+        </div>
+    </div>
+    <h2>{{ data.description }}</h2>
+    <div class="images_place">
+        {% if data.image != '0' %}
+        <div class="image_place">
+            <img src="/{{ data.image|cut:'siteMap/' }}">
+        </div>
+        {% endif %}
+        
+        {% if data.image1 != '0' %}
+            <div class="image_place">
+                <img src="/{{ data.image1|cut:'siteMap/' }}">
+            </div>
+        {% endif %}
+
+        {% if data.image2 != '0' %}
+            <div class="image_place">
+                <img src="/{{ data.image2|cut:'siteMap/' }}">
+            </div>
+        {% endif %}
+
+        {% if data.image3 != '0' %}
+            <div class="image_place">
+                <img src="/{{ data.image3|cut:'siteMap/' }}">
+            </div>
+        {% endif %}
+
+        {% if data.image4 != '0' %}
+            <div class="image_place">
+                <img src="/{{ data.image4|cut:'siteMap/' }}">
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="comments">
+        <div class="title_comments">
+            Комментарии
+        </div>
+
+        <div class="block_comments">
+            {% if comments %}
+                {% for i in comments %}
+                    <div class="comment">
+                        <div class="user_comment">{{ i.user }}</div>
+                        <div class="text_comment">{{ i.comments }}</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="user_comment">Станьте первым</div>
+                <div class="text_comment">Здесь пока нет комментариев</div>
+            {% endif %}
+
+        </div>
+
+        <div class="add_comments">
+            <form class="add_form_comments" action="/Places/{{ data.id }}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type='hidden' name='id_place' id="id_place" value='{{ data.id }}'/>
+                <textarea placeholder="Комментарий..." name="input_text" id="input_text" class="input_text" maxlength="500" value=""></textarea>
+                <center>
+                    {% if not request.user.is_authenticated %}
+                        <div class="input_button">Для добавления комментария войдите в аккаунт</div>
+                    {% else %}
+                        <input class="input_button" type="submit" name="add_comments" value="Добавить комментарий"/>
+                    {% endif %}
+                </center>
+            </form>
+        </div>
+    </div>
+
+</div>

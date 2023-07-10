@@ -1,0 +1,488 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    overflow-x: hidden;
+}
+
+*::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+  transition: 0.5s;
+  height: 12px;
+  width: 1vh;
+}
+
+@media screen and (max-width: 480px) {
+    *::-webkit-scrollbar,
+    html *::-webkit-scrollbar {
+      display: none;
+    }
+}
+
+*::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+  background-color: #4f8941;
+  border-radius: 5px;
+  border: 3px solid rgb(255, 255, 255);
+}
+
+/* сделать через flex чтоб было строго по средине */
+.gray_line {
+    margin: auto;
+    margin-top: 50px;
+    height: 70px;
+    margin-bottom: 50px;
+}
+
+.cycles {
+    position: relative;
+    top: 50%;
+    width: 100%;
+}
+
+
+.div_big_cycles {
+    display: inline-flex;
+    width: 100%;
+}
+
+.div_cycles {
+    margin: auto;
+    width: 200px;
+    right: 10px;
+    display: flex;
+}
+
+.cycle {
+    /* transform: translate(0%, -50%); */
+    position: relative;
+    width: 25px;
+    margin-left: 9px;
+    margin-right: 9px;
+    height: 25px;
+}
+
+.next_place {
+    cursor: pointer;
+    color: green    ;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: auto;
+    /* font-size: 25px; */
+    /* line-height: 40px; */
+    border-radius: 50px;
+
+}
+
+.next_place div {
+    height: 100%;
+    font-size: 30px;
+    text-align: center;
+
+}
+
+.title_cycle {
+    width: 100%;
+    transition: 1s;
+    
+
+    /* transform: translate(0%, -45%); */
+}
+
+.small {
+    transition: 1s;
+    width: 10px;
+}
+
+@keyframes type { 10%, 60%, 70% { width: 100%; } }
+
+.big {
+    width: 100%;
+}
+
+.cycle_text {
+    width: 100%;
+    transition: width 0.2s ease-out;
+    font-size: 28px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+.one_cycle {
+    cursor: pointer;
+    background-color: #4f8941;
+    margin-top: 5px;
+    position: absolute;
+    border-radius: 100px;
+    width: 20px;
+    height: 20px;
+}
+
+.big_cycle {
+    left: -5px;
+    margin-top: 0px;
+    padding: 5px;
+}
+
+.one_cycle:hover {
+    left: -5px;
+    margin-top: 0px;
+    padding: 5px;
+}
+
+.main_text {
+    width: 100%;
+}
+
+.main_text h1, .main_text div {
+    text-align: center;
+}
+
+.main_text div {
+    font-size: 26px;
+}
+
+
+.info_routes {
+    width: 80%;
+    margin: auto;
+    display: flex;
+}
+
+.cycle_image {
+    margin: auto;
+    margin-top: 50px;
+
+}
+
+.image {
+    width: 25vw;
+    height: 25vw;
+}
+
+.image img {
+    border-radius: 1000px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: 1s;
+}
+
+.image img:hover {
+    transform: scale(1.1);
+}
+
+.page {
+    height: 90vh;
+}
+
+.title_button {
+    position: relative;
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+}
+
+#post-form {
+    margin-left: 10px;
+    /* width: 20%; */
+}
+
+.click_input {
+    cursor: pointer;
+    padding: 5px 20px;
+    background: #317433;
+    border-radius: 30px;
+
+    position: absolute;
+    bottom: 30vh;
+    transform: translateY(-50%);
+    color: white;
+    border: solid green 1px;
+
+    font-size: 2vw;
+    font-family: 'Roboto', sans-serif;
+  }
+
+.click_input:hover {
+    transition: 0.5s;
+    background-color: white;
+    color: #317433;
+}
+
+/* .title_button form {
+    margin-top: 1vw;
+} */
+
+.nons_scroll {
+    overflow-y: hidden;
+}
+
+.main_scroll {
+    /* transition: 1s; */
+    overflow-x: hidden;
+    overflow-y: hidden;
+    /* width: 100vw; */
+    height: 80%;
+}
+
+.route::-webkit-scrollbar {
+    display: none;
+}
+
+/* *::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    display: none;
+} */
+
+
+
+.block_scroll_main {
+    transition: 1s;
+    /* transition: transform .4s ease-in; */
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.block_main {
+    width: 100vw;
+    height: 100%;
+}
+
+.up_route {
+    height: 100%;
+    /* margin: auto; */
+    position: relative;
+    width: 100vw;
+}
+
+.route0 {
+    width: 100vw;
+    /* margin: auto; */
+    height: 80%;
+}
+
+.route {
+    position: relative;
+    margin: auto;
+    width: 70vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+
+.nons {
+    display: none;
+}
+
+.title_route {
+    text-align: center;
+    width:  100%;
+    font-size: 2.7vw;
+}
+
+.desc_route {
+    text-align: "justify";
+    margin: auto;
+    margin-top: 1vh;
+    width: 90%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* margin-top: 5vh; */
+    font-size: 2.4vw;
+}
+
+.route_image {
+    /* top: 42vh; */
+    bottom: 0px;
+    margin: auto;
+    width: 100%;
+    height: 30vh;
+    position: absolute;
+    
+}
+
+.places {
+    position: relative;
+}
+
+.place {
+    position: relative;
+    margin-top: 100px;
+    /* height: 60vw; */
+    width: 80%;
+    margin: auto;
+}
+
+.image_place {
+    margin-bottom: 3vw;
+    width: 100%;
+    height: 30vw;
+}
+
+.image_place img {
+    /* object-fit: cover; */
+    width: 100%;
+    height: 100%;
+}
+
+
+.up {
+    margin: auto;
+    margin-bottom: 100px;
+    font-size: 2vh;
+    width: 20vh;
+    text-align: center;
+    padding: 10px 20px 10px 20px;
+    color: white;
+    border: 1px solid white;
+    background-color: #4f8941;
+    border-radius: 100px;
+}
+
+.up:hover {
+    color: #4f8941;
+    background-color: white;
+    border: 1px solid #4f8941;
+}
+
+
+@media screen and (max-width: 1000px) {
+
+
+    
+    .route_image {
+        width: 100%;
+    }
+
+    .desc_route {
+        font-size: 3vh;
+    }
+
+
+    .title_button {
+        margin-top: 30px;
+        margin: auto;
+        width: 90%;
+    }
+
+
+    .route {
+        width: 100%;
+    }
+
+    .image_place {
+        width: 100%;
+        height: 45vw;
+    }
+
+    .image_place img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.route_image img {
+    object-fit: cover;
+
+    width: 100%;
+    height: 100%;
+} 
+
+.title_place {
+    margin-bottom: 5px;
+    font-size: 3.9vw;
+}
+
+@media screen and (max-width: 768px) {
+    .info_routes {
+        display: block;
+    }
+
+    .cycle_image {
+        margin: auto;
+        margin-top: 5px;
+    }
+    
+    .image {
+        width: 100%;
+        height: 25vw;
+    }
+    
+    .image img {
+        border-radius: 0px;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+
+
+    .title_route {
+        font-size: 3vh;
+    }
+
+    .desc_route {
+        font-size: 4vh;
+    }
+
+    .click_input {
+        margin-left: -4px;
+        font-size: 2.2vh;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main_text h1 {
+        font-size: 25px;
+    }
+
+    .main_text div {
+        font-size: 20px;
+    }
+    .desc_route {
+        font-size: 2.5vh;
+    }
+
+    .cycle_text {
+        font-size: 6vw;
+    }
+}
+
+
+
+
+
+/* Style the header: fixed position (always stay at the top) */
+.headersss {
+  z-index: 100;
+  width: 80%;
+  margin: auto;
+  background-color: #f1f1f1;
+}
+
+/* The progress container (grey background) */
+.progress-container {
+  width: 100%;
+  height: 5px;
+  background: #ccc;
+}
+
+/* The progress bar (scroll indicator) */
+.progress-bar {
+    transition: 0.5s;
+  height: 5px;
+  background: #4caf50;
+  width: 0%;
+}

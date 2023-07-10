@@ -1,0 +1,30 @@
+{% load static %}
+{% include 'base.html' with title="Вход" hrefs6="active" %}
+
+<link rel="stylesheet" href="{% static '/css/registration.css' %}" media="screen">
+
+
+{% block content %}
+<h1>{{title}}</h1>
+
+
+<form method="post" class="decor">
+    {% csrf_token %}
+    <div class="buttons_reg">
+        <div class="button_reg" id="left" onclick="change(1)"><div class="r_l_divs active_button" id="left_div">Вход</div></div>
+        <div class="button_reg" id="right" onclick="change(2)"><div class="r_l_divs" id="right_div">Регистрация</div></div>
+    </div>
+    
+    <div class="form-inner" id="enter">
+        {% for f in form %}
+        <label class="form-label" for="{{ f.id_for_label }}"></label>{{ f }}
+        <div class="form-error">{{ f.errors }}</div>
+        {% endfor %}
+        <button class="submit" type="submit">Войти</button>
+    </div>
+
+</form>
+
+{% endblock %}
+
+<script type="text/javascript" src="{% static 'scripts/registration.js' %}"></script>

@@ -1,0 +1,211 @@
+{% load static %}
+{% include "base.html" with title="Места" user=user hrefs4="active" %}
+
+<link rel="stylesheet" href="{% static '/css/slider.css' %}" media="screen">
+<link rel="stylesheet" href="{% static '/css/places.css' %}" media="screen">
+
+<main>
+
+
+    <div class="filters">
+      <div class="text_filter">Фильтр мест:</div>
+      <form id="post-form" method="POST" action="Places" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <input type='hidden' name='need_value' id="need_value" value='{{ values }}'/>
+        <input name='need_value_click' id="need_value_click" type="submit">
+        <div class="buttons_filter">
+
+          <div class="filter" id="one" onclick="get_filter('0')">
+            <div class="title_filter">
+              Достопримечательности
+            </div>
+            <div class="images_filter">
+              <div class="gray" id="gray0"></div>
+              <img src="static/create_images/38aa1b81773402460a4a98fb1da8e452_3su0HmC.webp" alt="">
+            </div>
+          </div>
+
+          <div class="filter" id="two" onclick="get_filter('1')">
+              <div class="title_filter">
+                Красивые места природы
+              </div>
+              <div class="images_filter">
+                <div class="gray" id="gray1"></div>
+                <img src="static/create_images/ZiDd_HYk5oM_pdJdpYd.jpg" alt="">
+              </div>
+            </div>
+
+            <div class="filter" id="four" onclick="get_filter('3')">
+              <div class="title_filter">
+                Отели, хостелы
+              </div>
+              <div class="images_filter">
+                <div class="gray" id="gray3"></div>
+                <img src="static/create_images/interernaya-stilnaya-komnata-s-bolshim-divanom.jpg" alt="">
+              </div>
+            </div>
+
+            <div class="filter" id="three" onclick="get_filter('2')">
+              <div class="title_filter">
+                Санатории и парки
+              </div>
+              <div class="images_filter">
+                <div class="gray" id="gray2"></div>
+                <img src="static/create_images/block3.jpg" alt="">
+              </div>
+            </div>
+
+            <div class="filter" id="four" onclick="get_filter('3')">
+              <div class="title_filter">
+                Места для кемпинга
+              </div>
+              <div class="images_filter">
+                <div class="gray" id="gray3"></div>
+                <img src="static/create_images/block4.jpg" alt="">
+              </div>
+            </div>
+
+            <div class="filter" id="four" onclick="get_filter('3')">
+              <div class="title_filter">
+                Музеи
+              </div>
+              <div class="images_filter">
+                <div class="gray" id="gray3"></div>
+                <img src="static/create_images/f76a2d160a685913af3f581842c2f008_0KelLmA.jpg" alt="">
+              </div>
+            </div>
+
+
+          </div>
+      </form>
+  </div>
+
+  </div>
+
+
+
+    <h1 class="titles" id="titles">Интересные места для посещения</h1>
+
+    <div class="sticky" id="sticky">
+      <div class="dropdown">
+        <button onclick="myFunction()" id="search_places" class="dropbtn">Беларусь</button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="javascript:get_Region('Беларусь')">Вся Беларусь</a>
+          {% for i, value in regions.items %}
+            <a href="javascript:get_Region('{{ value }}')">{{ i }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="places" id="places">
+      
+      {% for i in places %}
+      
+      <div class="place region'{{ i.region }}'">
+        <div class="about_place">
+          <div class="name_place">
+            <a class="title_place" href='Places/{{i.id}}'>
+              <h1>{{i.name}}</h1>
+            </a>
+          </div>
+  
+        <div class="btn-group">
+          <a id="login" class="button_map" onclick="to_Map('{{ i.id }}')" href="Map" class="href_map">
+            <span>К карте</span>
+          </a>
+          <a id="${value[6]}" class="poster" onmouseover="open_desc('{{ i.id }}', 1)" onmouseout="open_desc('{{ i.id }}', 0)" >
+          <span>Описание</span>
+          </a>
+        </div>
+      </div>
+  
+      <div class="slider" id="slider">
+        <div class="buttons">
+          <div class="button left" onclick="scroller('{{ i.id }}', -1)">
+            <div class="but">
+              <
+            </div>
+          </div>
+          <div class="free"></div>
+          <div class="button right" id='right' onclick="scroller('{{ i.id }}', 1)">
+            <div class="but">></div>
+          </div>
+        </div>
+          
+          <div id='desc{{ i.id }}' class="descriptions opaces">
+            <div class="description">
+              {{ i.description }}
+            </div>
+          </div>
+      
+          <div class="images" id="images{{ i.id }}">
+            {% if i.image != '0' %}
+              <div id='image' class="image">
+                <img src="{{ i.image|cut:'siteMap' }}">
+              </div>
+            {% endif %}
+            {% if i.image1 != '0' %}
+              <div id='image' class="image">
+                <img src="{{ i.image1|cut:'siteMap' }}">
+              </div>
+            {% endif %}
+
+            {% if i.image2 != '0' %}
+              <div id='image' class="image">
+                <img src="{{ i.image2|cut:'siteMap' }}">
+              </div>
+            {% endif %}
+
+            {% if i.image3 != '0' %}
+              <div id='image' class="image">
+                <img src="{{ i.image3|cut:'siteMap' }}">
+              </div>
+            {% endif %}
+
+            {% if i.image4 != '0' %}
+              <div id='image' class="image">
+                <img src="{{ i.image4|cut:'siteMap' }}">
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+
+    <div class="itenerary_user" id="itenerary_user">
+      <div class="user_know">
+        <h1>Уже знаете куда отправиться или едете в командировку? Мы сможет показать интересные места по пути!</h1>
+        <div class="input_itinerary">
+          <form id="post-form" method="POST" enctype="multipart/form-data" action="Map">
+              {% csrf_token %}
+              <div class="form-inner">
+                  <input class="write_city" type="text"  name="city" placeholder="Город" maxlength="70">
+                  <input class="click_input" type="submit" value="Отправить">
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<script>
+  function down_gray() {
+    mas = '{{ values }}'
+    if (mas){
+      mas = mas.split(', ')
+      console.log(mas)
+      for (let i in mas){
+        document.getElementById(`gray${mas[i]}`).classList.toggle('not_active_gray')
+      }
+    }
+  }
+  down_gray()
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="{% static 'scripts/places.js' %}"></script>
+

@@ -1,0 +1,158 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static '/css/main.css' %}" media="screen">
+<link rel="stylesheet" href="{% static '/css/slider.css' %}" media="screen">
+
+{% include "base.html" with title="Главная" user=user  hrefs1="active" %}
+
+
+<main id="main">
+  <div class="pages">
+    <div class="page" id="main_page">
+      <div class="main_page">
+        <div class="main_image">
+          <img src="static/create_images/Contacts2.jpg" alt="main_photo">
+        </div>
+        <div class="main_text">
+          <div class="title_page"><h1>Путешествуйте по всей стране</h1></div>
+          <div class="description_main_text">Используя наш сайт вы сможете находить интересные для вас места, прокладывать к ним путь и смотреть куда еще можно заехать по пути. Также наш сайт будет считать сколько вы потратите денег на дорогу к незабываемым приключением.</div>
+          <div class="button_main_text">Что вам предстоит увидеть!</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="page" id="places">
+      <div class="places">
+        <div class="title_images">
+          <div class="title_places">Откройте для себя новые места для отдыха!</div>
+          <div class="intresting_places">
+            <div class="intresting_place"><img src="static/create_images/her1.jpg"></div>
+            <div class="intresting_place"><img src="static/create_images/her2.jpg"></div>
+            <div class="intresting_place"><img src="static/create_images/her3.jpg"></div>
+            <div class="intresting_place"><img src="static/create_images/her4.jpg"></div>
+            <div class="intresting_place"><img src="static/create_images/her5.jpg"></div>
+            <div class="intresting_place"><img src="static/create_images/her6.jpg"></div>
+          </div>
+          <a href="Places">
+            <div class="button_places">Перейти к местам!</div>
+          </a>
+          </div>
+        <div class="long_height_image"><img src="static/create_images/cartent.jpg"></div>
+      </div>
+    </div>
+
+
+    <div class="page" id="attractions_page">
+      <div class="attractions">
+        <form id="post-form" method="POST" action="Places">
+          {% csrf_token %}
+            <div class="filters">
+              <div class="row">
+                <div class="filter_block">
+                  <img src="static/create_images/block1.jpg">
+                  <div class="filter_title">Достопримечательности Беларуси</div>
+                  <div class="filter_button">
+                      <input type='hidden' name='filter' value='main_0' />
+                      <input type="submit" value="Перейти к местам">
+                  </div>
+                </div>
+                <div class="filter_block">
+                  <img src="static/create_images/block2.jpg">
+                  <div class="filter_title">Красивые места белорусской природы</div>
+                  <div class="filter_button">
+                    <input type='hidden' name='filter' value='main_1' />
+                    <input type="submit" value="Перейти к местам">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="filter_block">
+                  <img src="static/create_images/block3.jpg">
+                  <div class="filter_title">Санатории и парки семейного отдыха</div>
+                  <div class="filter_button">
+                    <input type='hidden' name='filter' value='main_2' />
+                    <input type="submit" value="Перейти к местам">
+                  </div>
+                </div>
+                <div class="filter_block">
+                  <img src="static/create_images/block4.jpg">
+                  <div class="filter_title">Места для кемпинга</div>
+                  <div class="filter_button">
+                    <input type='hidden' name='filter' value='main_3' />
+                    <input type="submit" value="Перейти к местам">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+
+<!-- 
+    <div class="page" id="services_page">
+      <div class="services">
+        <div class="service">
+          <div class="title_services"><h1>События страны</h1></div>
+          <div class="description_services">
+            С помощью нашего сайта у вас больше не будет никаких проблем с поиском мест для отдыха. К тому же вы сможете узнавать о всех событиях нашей страны одними из первых.
+          </div>
+          <div class="button_services"><a href="Events">Узнать подробнее</a></button></div>
+        </div>
+        <div class="slider_service">
+          <img src="https://ms1.relax.by/images/d4b21593f3f04b3b118e37d5e68927ff/thumb/w%3D400%2Ch%3D600%2Cq%3D90/afisha_event_photo/96/a7/1e/96a71e140ec73e212c62d396b7c29503.jpg">
+        </div>
+      </div>
+    </div> -->
+
+
+    <div class="page">
+      <div class="iitinerary">
+        <div class="frame">
+          <iframe class="frame_images" name="frame_images" id="frame_images" frameBorder = 0 src="{% url 'frame_images' %}">
+            Ваш браузер не поддерживает плавающие фреймы!
+         </iframe>
+        </div>
+        <div class="ready_iitinerary">
+          <div class="title_itinerary">
+            <div class="pustiashka"></div>
+            <div class="question_itinerary">Уже знаете куда отправляетесь? </div>
+            <h1>Подберем интересеные места по пути!</h1>
+          </div>
+          <div class="input_itinerary">
+              <form id="post-form" method="POST" enctype="multipart/form-data" action="Map">
+                  {% csrf_token %}
+                  <div class="form-inner">
+                      <input class="write_city" type="text"  name="city" placeholder="Город" maxlength="70">
+                      <input class="click_input" type="submit" value="Отправить">
+                  </div>
+              </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  $('.frame_images').hover(function(){
+    $('body').css('overflow', 'hidden');
+
+  }, function(){
+    $('body').css('overflow', 'auto');
+
+  })
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${window.scrollY}px`;
+  
+  // When the modal is hidden, we want to remain at the top of the scroll position
+  document.body.style.position = '';
+  document.body.style.top = '';
+
+</script>
+
+<!-- <footer>
+  <h1>100 идей для Беларуси</h1>
+</footer> -->
+

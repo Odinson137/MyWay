@@ -1,0 +1,386 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Карта</title>
+
+    <link rel="icon" href="static/create_images/camping.png"  type="image/x-icon">
+   <link rel="stylesheet" href="{% static 'css/style_map.css' %}">
+   <script type="text/javascript">
+
+    let id_map;
+
+      let last_place;
+
+      let city = '{{ city }}' || false;
+      console.log(city)
+
+      places = {}
+      let new_p = []
+      let coord = []
+
+      let user_info = [[''], ['', '', '']]
+
+      let ready_route = "{{ ready_route }}".split(' ')
+
+      let url = "{% url 'Map' %}"
+
+      let token = '{{ csrf_token }}'
+
+      let currency_benz = parseFloat("{{ oil }}")
+
+      let user_name = '{{ request.user }}'
+      console.log(user_name)
+
+      let user_place = '{{ user_place }}'
+      console.log(user_place)
+
+    let time = 1000
+
+
+    </script>
+
+   {% if city %}
+
+         <script>
+            city = '{{ city }}'
+         </script>
+
+   {% endif %}
+
+   {% for i in places_map %}
+      <script>
+         new_p = [];
+         new_p.push('{{ i.name }}')
+         new_p.push('{{ i.description }}')
+         coord = []
+         coord.push(parseFloat('{{ i.coordinates_x }}'.replace(',', '.')))
+         coord.push(parseFloat('{{ i.coordinates_y }}'.replace(',', '.')))
+         new_p.push(coord)
+         new_p.push("{{ i.image|cut:'siteMap/' }}")
+         places["{{ i.id }}"] = new_p;
+      </script>
+   {% endfor %}
+
+   <script 
+      src="https://api-maps.yandex.ru/2.1/?apikey=40e3831d-3b98-41c9-a7ae-aec328914022&lang=ru_RU">
+   </script>
+
+
+</head>
+<body id="body">
+    <main>
+        <div class="full_menu">
+
+            <div class="left_fraim" id="frame_one">
+                <div>
+                    <button class="hgy" id="up">
+                        <p class="fd">Ваш маршрут</p>
+                    </button>
+                    <img  class="vas" src="static/create_images/vasilki1.jpg">
+                </div> 
+            
+                <div id="clearMaps" class="clearMaps ">
+                    <button id="clearMap" class="delete nons">Удалить все добавленные точки</button>
+                </div>
+            
+                
+                {% if user_place %}
+                <div class="buttong_backs">
+                    <a class="href_back" href="Map">
+                        <div class="back" id="back">
+                            Вернуться!
+                        </div>
+                    </a>
+    
+                    {% if request.user.is_authenticated %}
+                       <a class="href_back" href="Account">
+                            <div class="back" id="back">
+                                Аккаунт!
+                            </div>
+                        </a>
+                    {% else %}
+                        <a class="href_back" onclick="href_to_login('{{ user_place.0 }}')">
+                            <div class="back" id="back">
+                                Войти!
+                            </div>
+                        </a>
+                    {% endif %}
+
+
+                </div>
+                
+                <center>
+                    <div id="thanks">Спасибо что добавили новое место!</div>
+                </center>
+                <div id="place_tittle_down_image" class="tittle5">{{ user_place.0 }}</div> 
+                <div id="place_tittle_down_image" class="tittle5">Категория - {{ user_place.1 }}</div>
+                <div class="images" id="images">
+                    <img name="mini" id="mini" src="static/images/{{ user_place.3 }}" class="mini">
+                </div>
+                <center>
+                    <button class="huyy">
+                        <div id="description_text">
+                            {{ user_place.2 }}
+                        </div>
+                    </button>
+                    <h2>В скором времени ваше место появится на карте!</h2>
+                </center>
+
+                {% else %}
+            
+                <div id="get_user_place" class="nons">
+                    <p id="question">Знаете интересное место для путешествия?</p>
+                    <p>Добавьте точку на карте, чтоб другие люди тоже могли там побывать!</p>
+                    <div class="text-field">
+                        <form id="post-form" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-inner">
+                                <input type="text" name="title" id="title_new_user_place" placeholder="Название места" maxlength="70">
+                                <div class="locale_objects">
+                                    <input class="locale_input" id="locale_input" type="text" name="locale" placeholder="Расположение (адрес или метка)" maxlength="50">
+                                    <div id="on_map"><img id="on_map" src="static/create_images/search.png" alt="Найти на карте" width="45px" height="45px"></div>
+                                </div>
+
+                                <input type='hidden' name='region' id="region_input" value='0'/>
+                                <!-- <input class="region_input" id="region_input" type="text" name="Region" placeholder="Регион (Минская область)" maxlength="50"> -->
+
+                                <textarea placeholder="Описание..." name="description" id="Description" rows="3" maxlength="230"></textarea>
+
+                                <div class="input_add_images" id="input_add_images">
+                                    <div class="one_input_blocks" id="one_input_blocks1">
+                                        <label class="add_images" id="add_images1" title="пусто" for="user_input1">
+                                            <div class="input_images_block">
+                                                <div class="input_image_block active_input_image" id="input_image_block1">
+                                                    <img src="static/create_images/free-icon-add-3342619.png" alt="">
+                                                </div>
+                                                <div class="title_input_block" id="title_input_block1">
+                                                    Фотография не выбрана
+                                                </div>
+                                                <div class="delet_image_block" id="delet_image_block1">
+                                                    <img src="static/create_images/free-icon-remove-3342627.png" alt="">
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input type="file" accept=".jpg, .png, .psd, .jfif" class="user_input" id="user_input1" name="user_image1">
+                                    </div>
+
+                                    <div class="one_input_blocks nons" id="one_input_blocks2">
+                                        <label class="add_images" id="add_images2" for="user_input2">
+                                            <div class="input_images_block">
+                                                <div class="input_image_block active_input_image" id="input_image_block2">
+                                                    <img src="static/create_images/free-icon-add-3342619.png" alt="">
+                                                </div>
+                                                <div class="title_input_block" id="title_input_block2">
+                                                    Фотография не выбрана
+                                                </div>
+                                                <div class="delet_image_block" id="delet_image_block2">
+                                                    <img src="static/create_images/free-icon-remove-3342627.png" alt="">
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input type="file" accept=".jpg, .png, .psd, .jfif" class="user_input" id="user_input2" name="user_image2">
+                                    </div>
+
+                                    <div class="one_input_blocks nons" id="one_input_blocks3">
+                                        <label class="add_images" id="add_images3" for="user_input3">
+                                            <div class="input_images_block">
+                                                <div class="input_image_block active_input_image" id="input_image_block3">
+                                                    <img src="static/create_images/free-icon-add-3342619.png" alt="">
+                                                </div>
+                                                <div class="title_input_block" id="title_input_block3">
+                                                    Фотография не выбрана
+                                                </div>
+                                                <div class="delet_image_block" id="delet_image_block3">
+                                                    <img src="static/create_images/free-icon-remove-3342627.png" alt="">
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input type="file" accept=".jpg, .png, .psd, .jfif" class="user_input" id="user_input3" name="user_image3">
+                                    </div>
+
+                                    <div class="one_input_blocks nons" id="one_input_blocks4">
+                                        <label class="add_images" id="add_images4" for="user_input4">
+                                            <div class="input_images_block">
+                                                <div class="input_image_block active_input_image" id="input_image_block4">
+                                                    <img src="static/create_images/free-icon-add-3342619.png" alt="">
+                                                </div>
+                                                <div class="title_input_block" id="title_input_block4">
+                                                    Фотография не выбрана
+                                                </div>
+                                                <div class="delet_image_block" id="delet_image_block4">
+                                                    <img src="static/create_images/free-icon-remove-3342627.png" alt="">
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input type="file" accept=".jpg, .png, .psd, .jfif" class="user_input" id="user_input4" name="user_image4">
+                                    </div>
+
+                                    <div class="one_input_blocks nons" id="one_input_blocks5">
+                                        <label class="add_images" id="add_images5" for="user_input5">
+                                            <div class="input_images_block">
+                                                <div class="input_image_block active_input_image" id="input_image_block5">
+                                                    <img src="static/create_images/free-icon-add-3342619.png" alt="">
+                                                </div>
+                                                <div class="title_input_block" id="title_input_block5">
+                                                    Фотография не выбрана
+                                                </div>
+                                                <div class="delet_image_block" id="delet_image_block5">
+                                                    <img src="static/create_images/free-icon-remove-3342627.png" alt="">
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <input type="file" accept=".jpg, .png, .psd, .jfif" class="user_input" id="user_input5" name="user_image5">
+                                    </div>
+                                </div>
+
+                                <input type='hidden' name='filter' id="categories" value='0'/>
+                                <div class="filters">
+                                    <div class="text_filter">Выберите категорию:</div>
+                                    <div class="filter_row">
+                                        <div class="filter" id="one" onclick="get_filter('one')">Достопримечательности</div>
+                                        <div class="filter" id="two" onclick="get_filter('two')">Красивые места природы</div>
+                                    </div>
+                                    <div class="filter_row">
+                                        <div class="filter" id="three" onclick="get_filter('three')">Санатории и парки</div>
+                                        <div class="filter" id="four" onclick="get_filter('four')">Места для кемпинга</div>
+                                    </div>
+                                </div>
+
+                                <input class="send_form" accept=".jpg, .png, .psd, .jfif" id="send_form" name="send_form" type="submit" value="Отправить">
+
+                            </div>
+                        </form>
+                        </div>
+                </div>
+                <div class="div_nubmers_buttons" id="div_nubmers_buttons">
+                        <div id="nubmers_buttons" class="nubmers_buttons nons"></div>
+                </div>
+                
+                    <div class="info_last_place" id="info_last_place">
+                        <div id="place_tittle_down_image" class="tittle5"></div>
+                        <div class="images" id="images">
+                            <img name="mini" class="mini" id="mini">
+                        </div>
+                
+                        <button class="huyy" id="description_text_main">
+                            <div id="description_text" class="descky">
+                            </div>
+                        </button>
+                        <div id="info_buttons">
+                            <div id="distance" class="info_button"></div>
+                            <div id="duration" class="info_button"></div>
+                            <div class="info_button" id="benz" onclick=benz()>
+                                <div id="currency" class="duraction" >Цена за бензин - {{ oil }} рублей</div> 
+                            </div>
+
+                            <div class="setting_icons">
+                                <div class="icon_points_map">
+                                    <div id="remove_benz" class='remove_claster'>
+                                        <div class="claster_img">
+                                            <img src="static/create_images/free-icon-gas-station-1000437.png">
+                                        </div>
+                                        <div class="gray_claster active_claster" id="gray_claster"></div>
+                                    </div>
+                                    <div class="remove_claster" id="remove_hotel">
+                                        <div class="claster_img">
+                                            <img src="static/create_images/hotel.png">
+                                        </div>
+                                        <div class="gray_claster active_claster" id="gray_claster"></div>
+                                    </div>
+                                </div>
+                                <div class="choice_route">
+                                    <div class="choice_car" id="choice_car"></div>
+                                    <div class="choice_bus" id="choice_bus"></div>
+                                </div>
+                            </div>
+
+            
+                            {% if request.user.is_authenticated %}
+                                <div class="save_itinerary" id="save_itinerary">Сохранить маршрут</div>
+                            {% endif %}
+                        </div>
+                </div>
+            
+                <div class="marker_menu">
+                    <div id="newMarker"></div>
+                    <button id="destroyButton" class="add nons">Добавить точку в маршрут</button>
+                </div>
+                
+                <hr class="hr">
+            
+                <div class="div_map_mobile nons" id="div_map_mobile">
+
+                    <div id="map_mobile" class="map_mobile"></div>
+
+                    <div class="mobile_map_menu" id="mobile_map_menu">
+                        <div class="place_map nons" id="place_map">
+                            <div class="title_close_menu" id="title_close_menu">
+                                Козьянские болота
+                            </div>
+                            <div class="img_close_menu_place">
+                                <img id="img_close_menu_map" src="static/images/771470_main_qe5oUN1.jpg" alt="">
+                            </div>
+                            <div class="desc_close_menu" id="desc_close_menu">
+                                Одним из самых необычных мест Беларуси являются солигорские терриконы. 
+                                Если хотите увидеть поистине неземной пейзаж, как на Марсе, 
+                                то отправляйтесь в белорусский промышленный город под названием Солигорск.
+                            </div>
+    
+                            <div class="marker_menu">
+                                <button class="add" id="destroy_button_map">Добавить точку в маршрут</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="close_menu" onclick="close_mobile_map()">
+                        <img src="static/create_images/navigation.png" alt="">
+                    </div>
+
+
+                </div>
+
+   
+
+                <div class="title_insteresting_place" id="title_insteresting_place">Интересные места по пути:</div>
+                <!-- <div class="unwrap nons" id="unwrap">
+                    <center>
+                        <div class="unwrap_img">
+                                <img src="static/images/wheel.png" alt="Развернуть">
+                        </div>
+                    </center>
+                </div> -->
+                <div class="absolute">
+                    <div class="up" id='upper'>
+                        <a href="#up">
+                            <img class="no bigger_img" id="bigger_img" src="static/create_images/free-icon-up-arrow-8370992.png" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <div id="places" class="places"></div>
+            
+            {% endif %}
+            
+            </div>
+        
+          <div id="map" class="map"></div>
+        </div>
+
+        </main>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script type="text/javascript" src="{% static 'scripts/map.js' %}"></script>
+        <script type="text/javascript" src="{% static 'scripts/dop_map.js' %}"></script>
+
+</body>
+</html>
+
+<!-- 40e3831d-3b98-41c9-a7ae-aec328914022 -->

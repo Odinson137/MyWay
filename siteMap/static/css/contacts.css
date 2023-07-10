@@ -1,0 +1,258 @@
+*::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+  height: 12px;
+  width: 15px;
+}
+*::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+  background-color: #4f8941;
+  border-radius: 5px;
+  border: 3px solid rgb(255, 255, 255);
+}
+
+body{
+  margin: 0px;
+  background-color: white;
+}
+  
+
+/* div#tekst_sverhu_kartinki {
+  position: relative;
+}
+
+.tekst_sverhu_kartinki {
+
+  position: absolute;
+
+  top: 17%; 
+
+  left: 15%;
+
+  text-transform: uppercase;
+
+  color: white;
+
+  padding: 10px;
+
+  text-align: center;
+
+  font: bold 40pt Helvetica, Sans-Serif;
+} */
+
+
+/* .tekst_sverhu_kartinki2 {
+
+  position: absolute;
+  top: 25%;
+  left: 23%;
+  color: white;
+  padding: 10px;
+  width: 55%;
+  text-align: center;
+  
+  font: 18pt Helvetica, Sans-Serif;
+  }
+
+  .tekst_sverhu_kartinki3 {
+
+      position: absolute;
+      top: 40%;
+      left: 38%;
+      color: white;
+      padding: 10px;
+      } */
+
+.main_img_div{
+  width: 100%;
+  height: 100vw;
+}
+
+.main_img{
+  background-attachment: fixed;
+  position: relative;
+  width: 100%;
+  /* height: 100%; */
+
+}
+
+.hay
+{
+  height: 40px;
+  border-radius: 100px;
+  border: 0px; 
+  text-align: center;
+  color: white; 
+  font-size: 18pt;
+  background-color: #4f8941;
+} 
+.hay:hover{
+    background-color: white;
+    color: black;
+}
+.title1{
+  width: 45%;
+  float: left;
+  font: 45pt Helvetica, Sans-Serif;
+  margin-top: 40px;
+  margin-left: 10%;
+
+}
+
+.cartent{
+ float: right;
+  margin-top: 47px;
+  width: 30%;
+  margin-right: 10%;
+  
+}
+
+.row {
+margin-top: -4%;
+  display: flex;
+  width: 45%;
+  margin-left: 9%;
+  margin-right: 5%;
+}
+.col {
+  height: 20vw;
+  width: 20vw; 
+  margin-right: 1vw; 
+  margin-left: 1vw;
+  margin-top: -25px;
+
+}
+.png{ width: 100%;
+
+}
+
+.col {
+  display: inline-block; 
+  overflow: hidden; /* Скрываем всё за контуром */
+}
+.col img {
+ 
+  transition: 1s; /* Время эффекта */
+  display: block; 
+}
+
+.col img:hover {
+  
+  transform: scale(1.05 ); /* Увеличиваем масштаб */
+  padding-bottom: -20px;
+}
+
+.direct{
+   padding: 10px;
+  width: 25%;
+  border-radius: 100px;
+ border: 0px; 
+   margin-bottom: 2%;
+  opacity: 1;
+  font-size: 20pt;
+  margin-left: 10%;
+  background-color: #406b36;
+  color: white;
+  margin-right: 50%;
+}
+
+.direct:hover{
+  background-color:#a0cd94;
+  color: black;
+}
+
+.green{
+  width: 100%;
+  height: 60vh;
+  background-color:#285829;
+  margin-top: 2%;
+}
+
+.rows {
+  padding-top: 4%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 84%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.colems {
+  margin-left:auto;
+  margin-right:auto;
+  text-align: center;
+  height: 25vw;
+  width: 50vw; 
+  margin-right: 2vw;
+  margin-left: 2vw;
+}
+
+#third{
+  background-color: white;
+}
+.text{
+  font-size: 15pt;
+  height: 15%;
+}
+
+.blocks_places{
+  width: 90%;
+  padding-top: 4%;
+}
+.direct_to_places{
+  width: 80%;
+  background-color:#448545;
+  color: white;
+  border-radius: 100px;
+  border: 0px;
+  text-align: center;
+  font-size: 15pt;
+  padding: 2%;
+}
+
+.direct_to_places:hover{
+  background-color:#a0cd94;
+
+  color: black;
+} 
+.title3{
+  width: 50%;
+  float: left;
+  font: 45pt Helvetica, Sans-Serif;
+  margin-top: 40px;
+  margin-left: 10%;
+}
+.our_uslugi{
+  font-size: 20pt;
+  margin-left: 10%;
+  float: left;
+  width: 40%;
+  margin-top: 0px;
+}
+
+.title4{
+  width: 30%;
+  float: left;
+  font: 25pt Helvetica, Sans-Serif;
+  margin-top: 40px;
+  margin-left: 10%;
+  margin-right: 50%;
+}
+
+.text3{
+  width: 50%;
+  float: left;
+  font: 25pt Helvetica, Sans-Serif;
+  margin-top: 40px;
+  margin-left: 10%;
+ color: white;
+}
+.green1{
+  width: 100%;
+  height: 50vh;
+  background-color:#285829;
+  margin-top: 2%;
+}

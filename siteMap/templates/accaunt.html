@@ -1,0 +1,310 @@
+{% load static %}
+
+{% include "base.html" with title="Выход" hrefs6="active" %}
+
+<link rel="stylesheet" href="{% static 'css/accaunt.css' %}">
+<link rel="stylesheet" href="{% static 'css/slider.css' %}">
+
+
+<main>
+    <aside class="left_menu">
+        <div class="liners">
+            <div class="liner " id="liner1"></div>
+            <div class="liner " id="liner2"></div>
+        </div>
+        <div class="get_itinerary">
+            <div class="title_itinerary" onclick="see_for_you(1)" >Сохраненные маршруты:</div>
+            <div class="point_itinerary nons" id="point_itinerary1">
+                <div class="block_point_itinerary">
+                    {% if itinerary %}
+                        {% for key, value in itinerary.items %}
+                            <div class="get_p" id="get_p_{{ key }}" onclick="zapros([0, '{{ key }}'])">
+                                {{ key }}) {{ value.last_index }}
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                            <div class="get_p">
+                                Пока пусто
+                            </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="get_places">
+            <div class="title_places" onclick="see_for_you(2)">Добавленные точки:</div>
+            <div class="point_itinerary nons" id="point_itinerary2">
+                <div class="block_point_itinerary">
+                    {% if user_places %}
+                        {% for value in user_places %}
+                            <div class="get_place" onclick="zapros([1, '{{ value.id }}'])">
+                                {{ value.name }}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="get_place">Пока пусто</div>
+                    {% endif %}
+                </div>
+                <a href="Map">
+                    <div class="get_place" id="get_toch">Добавить свою точку</div>
+                </a>
+            </div>
+        </div>
+    </aside>
+    
+
+
+
+    <div class="main">
+        <h1 class="main_h1" id="main_h1">История путешествий:</h1>
+
+        <div class="start_page" id="start_page">
+            <h2 style="text-align: center;">Здесь будет отображаться информация о сохраненных вами маршртуах и добавленных на карту мест</h2>
+            <div class="start_block_images">
+                <div class="block_image">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="main_block_routes nons" id="main_block_routes">
+                <div class="line">
+                    <div class="kol_points" id="kol_points">
+                    </div>
+                </div>
+                <div class="info_route">
+                    <div class="title_info_route">Информация о маршруте:</div>
+                    <div class="div_info_route">
+                        <div class="title_categories" id="firsts">
+                            <div class="title_categorie">Точек маршрута:</div>
+                            <div id="tochka" class="categorie"></div>
+                        </div>
+                        
+                        <div class="title_categories">
+                            <div class="title_categorie">Расстояние:</div>
+                            <div id="kilometers" class="categorie"></div>
+                        </div>
+        
+                        <div class="title_categories">
+                            <div class="title_categorie">Время:</div>
+                            <div id="time" class="categorie"></div>
+                        </div>
+                        
+                        <div class="title_categories">
+                            <div class="title_categorie">Траты на топливо:</div>
+                            <div id="currency" class="categorie"></div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="div_oportunety">
+                    <div class="title_opotunity">Ваше описание данного маршрута:</div>
+                    <div class="decor">
+                        <textarea class="opotunity" id="opotunity"></textarea>
+                        <div class="div_button_opotunity">
+                            <input onclick="red_desc()" type="submit" class="button_opotunity" value="Изменить описание">
+                        </div>
+                    </div>
+                </div>
+                <div class="pointers">
+                    <div class="title_pointers">Маршрут:</div>
+                    <div class="points" id="points"></div>
+                </div>
+
+                <div class="delete_routes">
+                    <form action="Account" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type='hidden' name='id_routes' id="id_routes" value='0'/>
+                        <input type="submit" name="delete_routes" value="Удалить">
+                    </form>
+                </div>
+        </div>
+
+        <div class="div_main_places nons" id="div_main_places">
+            <form action="Account" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type='hidden' name='id' id="id" value='0'/>
+                <input type='hidden' name='delete_photos' id="delete_photos" value=''/>
+                
+                <div class="title_opacity">
+                    <div class="places_title" id="">
+                        <div class="title_input_title">Название:</div>
+                        <input class="input_title" name="input_title" id="input_title" value="" type="text">
+                    </div>
+                    <div class="opacity">
+                        <div class="status_opacity" onclick="change_slider()">
+                            <label class="switch">
+                                <!-- <input type="checkbox" class="active_slider"> -->
+                                <span id="slider" class="slider round" ></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reason_opacity" class="reason_opacity">
+                    В данный момент добавленное вами место находится на модерации после ваших изменений, а потому оно не будет отображаться для всех пользователей.
+                </div>
+
+                <div class="info_places">
+                    <div class="info_two">
+                        <div class="block_filter">
+                            <input type='hidden' name='filter' id="filter" value='0'/>
+                            <div class="title_filter">Категория:</div>
+                            <div class="filter" id="filter_title">Красивые места белорусской природы</div>
+                            
+                            <div class="menu_filter">
+                                <center>
+                                    <div title="Поменять категорию" class="down" id="down1" onclick="get_list(1)">></div>
+                                </center>
+                                <div class="filters nons" id="filters"></div>
+                            </div>
+                        </div>
+
+                        <div class="block_region">
+                            <input type='hidden' name='region' id="region" value='0'/>
+                            <div class="title_region">Регион (область):</div>
+                            <div class="region" id="region_title">Минск</div>
+
+                            <div class="menu_region">
+                                <center>
+                                    <div title="Поменять регион" class="down" id="down2" onclick="get_list(2)">></div>
+                                </center>
+                                <div class="regions nons"id='regions'></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="place_images">
+                        <div class="title_images">Фотографии:</div>
+                        <div class="place_image_main">
+                            <img id="user_img" src="/static/images/Снимок_-_1.png">
+                        </div>
+                        <center>
+                            <div class="place_all_images" id="place_all_images">
+                                <div class="one_image" id="one_image0">
+                                    <div class="image_user_block">
+                                        <img id="user_one_img3" src="/static/images/Снимок_-_1.png">
+                                    </div>
+                                    <div class="musorka active_musorka">
+                                        <img src="static/images/trash-can_115312.png" alt="">
+                                    </div>
+                                    <div class="gray_block active_gray"></div>
+                                </div>
+                                <div class="one_image" id="one_image1">
+                                    <div class="image_user_block">
+                                        <img id="user_one_img3" src="/static/images/Снимок_-_1.png">
+                                    </div>
+                                    <div class="musorka">
+                                        <img src="static/images/trash-can_115312.png" alt="">
+                                    </div>
+                                    <div class="gray_block"></div>
+                                </div>
+                                <div class="one_image" id="one_image2">
+                                    <div class="image_user_block">
+                                        <img id="user_one_img3" src="/static/images/Снимок_-_1.png">
+                                    </div>
+                                    <div class="musorka">
+                                        <img src="static/images/trash-can_115312.png" alt="">
+                                    </div>
+                                    <div class="gray_block"></div>
+                                </div>
+
+                                <div class="one_image" id="one_image3">
+                                    <div class="image_user_block">
+                                        <img id="user_one_img3" src="/static/images/Снимок_-_1.png">
+                                    </div>
+                                    <div class="musorka">
+                                        <img src="static/images/trash-can_115312.png" alt="">
+                                    </div>
+                                    <div class="gray_block"></div>
+                                </div>
+
+                                <div class="one_image" id="one_image4">
+                                    <div class="one_block_image" id="one_block_image4">
+                                        <div title="Добавить фотографию" class="plus" id="plus4">
+                                            <label for="upload_image4">+</label>
+                                            <input type="file" class="user_input" value="0" id="upload_image4" name="user_image">
+                                        </div>
+                                    </div>
+
+                                    <div class="input_text" id="input_text4"></div>
+                                </div>
+                            
+                            </div>
+                        </center>
+
+                    </div>
+
+                    <div class="places_description" id="places_description">
+                        <div class="title_description">Описание:</div>
+                        <textarea placeholder="Описание..." name="description_user_place" id="description_user_place" maxlength="230"></textarea>
+                    </div>
+
+                </div>
+        
+                <div class="bottom_input">
+                    <div class="save_info">
+                        <input type="submit" name="save" value="Сохранить">
+                    </div>
+                    <div class="delete_info">
+                        <input type="submit" name="delete" value="Удалить">
+                        <div class="delete_place_gray" onclick="delete_place_error()" id="delete_place_gray"></div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    
+    </div>
+</main>
+
+
+<script>
+    let url = "{% url 'Account' %}"
+    let token = '{{ csrf_token }}'
+
+    let itinerary = {}
+    let user_places = {}
+    let p
+    
+    let for_points
+</script>
+
+{% for k, value in itinerary.items %}
+
+    <script>
+        for_points = []
+    </script>
+
+    {% for i in value.routes_points %}
+        <script>
+            for_points.push(['{{ i.0 }}', '{{ i.1 }}'])
+        </script>
+
+    {% endfor %}
+    <script>
+        p = {
+            'first_point': '{{ value.first_point }}',
+            'routes_points': for_points,
+            'distance': '{{ value.distance }}',
+            'time': '{{ value.time }}',
+            'currency': '{{ value.currency }}',
+            'description': '{{ value.description }}',
+            'len': '{{ value.len }}',
+            'last_index': '{{ value.last_index }}',
+            'id': '{{ value.id }}'
+        }
+        itinerary['{{ k }}'] = p
+    </script>
+
+{% endfor %}
+
+{% for i in user_places %}
+    <script>
+        user_places['{{i.id}}'] = {'name': '{{ i.name }}', 'opacity': '{{ i.opacity }}', 'filter': '{{i.filter}}', 'description': '{{i.description}}', 'region': '{{i.region}}', 
+        'images': ['{{i.image}}', '{{i.image1}}', '{{i.image2}}', '{{i.image3}}', '{{i.image4}}']}
+    </script>
+
+{% endfor %}
+
+
+<script type="text/javascript" src="{% static 'scripts/accaunt.js' %}"></script>

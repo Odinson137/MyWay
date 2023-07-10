@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{{ title }}</title>
+    <script>sessionStorage.setItem('lastPlace', `None`);</script>
+    <link rel="icon" href="static/create_images/camping.png"  type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+      html {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      }
+        a{
+            text-decoration: none;
+        }
+        ul{
+        
+            list-style: none;
+        }
+        
+        /* Header */
+        .header{
+          top: 0px;
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        
+          z-index: 100000;
+          background-color: white;
+          position: fixed;
+          height: 80px;
+          width: 100%;
+          display: block;
+        }
+
+
+        
+        
+        .title_image {
+          margin-top: 5px;
+          margin-left: 6vw;
+          margin-right: 1vw;
+          width: 68px;
+        }
+        
+        
+        /* Logo */
+        .logo{
+
+          display: inline-block;
+          color: black;
+          height: 100%;
+          position: absolute;
+          top: 15px;
+          font-size: 46px;
+        }
+        
+                /* Nav menu */
+        .nav{
+
+          margin-right: 3vw;
+          width: 100%;
+          position: fixed;
+          background-color: white;
+          overflow: hidden;
+          max-height: 0;
+          transition: max-height .5s ease-out;
+        }
+        
+        .menu li {
+          margin-left: 10px;
+        }
+        
+        .menu a{
+          margin-right: 50px;
+          color: black;
+          display: block;
+          padding-top: 7px;
+          padding-bottom: 7px;
+          padding-left: 1vw;
+          padding-right: 1vw;
+        
+        }
+        
+        .menu a:hover {
+          color: white;
+          background-color: #317433;
+        }
+        
+        .hamb{
+          background-color: #317433;
+          color: #317433;
+          cursor: pointer;
+          float: right;
+          margin: 25px;
+          padding: 20px;
+        }/* Style label tag */
+        
+        .hamb-line {
+          background-color: white;
+          display: block;
+          height: 2px;
+          position: relative;
+          width: 24px;
+        
+        } /* Style span tag */
+        
+        .hamb-line::before,
+        .hamb-line::after{
+          background-color: white;
+          content: '';
+          display: block;
+          height: 100%;
+          position: absolute;
+          transition: all .2s ease-out;
+          width: 100%;
+        }
+
+        
+        .side-menu {
+            display: none;
+        } /* Hide checkbox */
+        
+        /* Toggle menu icon */
+        .side-menu:checked ~ nav{
+            max-height: 100%;
+        }
+        .side-menu:checked ~ .hamb .hamb-line {
+            background: transparent;
+        }
+        .side-menu:checked ~ .hamb .hamb-line::before {
+            transform: rotate(-45deg);
+            top:0;
+        }
+        .side-menu:checked ~ .hamb .hamb-line::after {
+            transform: rotate(45deg);
+            top:0;
+        }
+        
+        #active {
+          color: white;
+          background-color: #317433;
+        }
+        
+        /* Responsiveness */
+        @media (min-width: 900px) {
+        
+            .nav{
+              width: 100%;
+              margin-top: 10px;
+              margin-bottom: 10px;
+              max-height: none;
+              top: 0;
+              position: relative;
+              float: right;
+              width: fit-content;
+            }
+        
+        
+            .menu li{
+
+              color: black;
+              float: left;
+            }
+        
+            .menu a {
+              margin-right: 0px;
+              font-size: 24px;
+            }
+        
+            .hamb{
+                display: none;
+            }
+        
+            .title_image {
+              margin-left: 40px;
+            }
+        
+        }
+        
+    
+
+        @media (max-width: 480px) {
+          .header {
+            height: 70px;
+          }
+          .logo {
+            font-size: 36px;
+          }
+        
+          .title_image {
+            height: 50px;
+            width: 50px;
+            margin-left: 20px;
+            margin-top: 10px;
+          }
+          .hamb {
+            margin: 15px;
+          }
+        }
+    </style>
+
+    <script>
+      let user_name = sessionStorage.getItem('login_user_name');
+      
+      function to_Map_on_other_pages(){
+        console.log('Nothing')
+        sessionStorage.setItem('lastPlace', `None`);
+      }
+      console.log('{{ user }}')
+    </script>
+    
+
+</head>
+<body>
+      <header class="header">
+        <img  class="title_image" src="/static/create_images/camping.png">
+        <a href="#" class="logo">My Way</a>
+        <input class="side-menu" type="checkbox" id="side-menu"/>
+        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+        <nav class="nav">
+            <ul class="menu">
+                <li><a href="/" id="{{ hrefs1 }}">Главная</a></li>
+                <li onclick="to_Map_on_other_pages()"><a href="/Map" id="{{ hrefs2 }}">Карта</a> </li>
+                <li><a href="/Places" id='{{ hrefs4 }}'>Места</a></li>
+                <li><a href="/Routes" id='{{ hrefs5 }}'>Маршруты</a></li>
+                <li>
+                  {% if title == 'Выход' %}
+                    <a href="/logout" id='{{ hrefs6 }}'>
+                      Выйти
+                    </a>
+                  {% elif request.user.is_authenticated %}
+                    <a href="/Account" id='{{ hrefs6 }}'>
+                      Аккаунт
+                    </a>
+
+                  {% else %}
+                    <a href="/Registration" id='{{ hrefs6 }}'>
+                      Войти  
+                    </a>
+                  {% endif %}
+                </li>
+            </ul>
+        </nav>
+      </header>
+
+</body>
+</html>

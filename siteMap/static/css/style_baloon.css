@@ -1,0 +1,14 @@
+
+.marker_info {
+    text-align: center;
+    font-size: 12pt;
+    font-family: sans-serif;
+}
+/* 
+.marker_info img {
+    width: 95%;
+} */
+
+#destroyButton {
+    opacity: 1;
+}

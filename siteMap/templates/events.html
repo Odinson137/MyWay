@@ -1,0 +1,27 @@
+{% load static %}
+
+{% include "base.html" with title="О нас" hrefs1="non_active" hrefs2="non_active" hrefs3="active" hrefs4="non_active" hrefs5="non_active"  %}
+
+<style>
+    html, body {
+        margin: 0px;
+    }
+
+    main {
+        text-align: center;
+        margin: 100px;
+    }
+
+</style>
+
+<main>
+    {% for i, desc in text.items %}
+
+        <h1>{{ i }}</h1>
+        <img src="{{ desc.0 }}">
+        {% for i in desc.1 %}
+            <p>{{ i }}</p>
+        {% endfor %}
+
+    {% endfor %}
+</main>

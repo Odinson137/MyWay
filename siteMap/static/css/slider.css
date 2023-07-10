@@ -1,0 +1,18 @@
+.clickers {
+  /* убираем выделение текста при частых кликах */
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+
+  font-size: 4vw;
+  color: white;
+  text-decoration: none;
+}
+
+.filters, .regions, .down {
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+}

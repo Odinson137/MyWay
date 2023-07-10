@@ -1,0 +1,63 @@
+
+<link href="libs/fullpage/jquery.fullPage.css" type="text/css" rel="stylesheet">
+
+<style>
+    body, html {
+        margin: 0px;
+    }
+    .main_image {
+        width: 100%;
+        height: 100%;
+    }
+        
+    .main_image img {
+        object-fit: cover;
+        height: 100%;
+        width: 100vw;
+        }
+
+    *::-webkit-scrollbar,
+    html *::-webkit-scrollbar {
+          width: 0px;
+        }
+
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="static/libs/fullpage/jquery.easings.min.js"></script>
+<script src="static/libs/fullpage/scrolloverflow.min.js"></script>
+<script src="static/libs/fullpage/jquery.fullPage.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.main_image').fullpage();
+    });  
+
+</script>
+
+<div class="main_image" id="fullpage">
+    <section class="section">
+        <img src="static/create_images/.jpg" alt="">
+    </section>
+    <section class="section">
+        <img src="static/create_images/--03-110319.jpg" alt="">
+    </section>
+    <section class="section">
+        <img src="static/create_images/4-1.jpg" alt="">
+    </section>
+    <section class="section">
+        <img src="static/create_images/5c1793152a5d4251e110a3c3@2x.webp" alt="">
+    </section>
+    <section class="section">
+        <img src="static/create_images/block2.jpg" alt="">
+    </section>
+    <section class="section">
+        <img src="static/create_images/block1.jpg" alt="">
+    </section>
+    <section class="section">
+        <img src="static/create_images/ada67fd795ecade91309485fcf5e9d6f_1.jpeg" alt="">
+    </section>
+
+</div>

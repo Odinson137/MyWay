@@ -1,0 +1,151 @@
+{% load static %}
+
+<div id="up">g</div>
+
+{% include "base.html" with title="Маршруты" user=user hrefs5="active" %}
+
+<link rel="stylesheet" href="{% static 'css/routes.css' %}">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+    let all = 1
+</script>
+
+
+<div class="gray_line" id="gray_line" onmouseleave="rename(2, '')">
+    <div class="cycles">
+        <div class="div_big_cycles">
+            <div class="next_place"  onclick="next_place(-1)">
+                <div><</div>
+            </div>
+            <div class="div_cycles">
+
+                <div class="cycle">
+                    <div class="one_cycle big_cycle" onclick="reroute(0, 'Главная')" id="active_cycle_0" onmouseover="rename(1, 'Главная')" onmouseout="rename(2, 'Главная')"></div>
+                </div>
+                {% for i in routes %}
+                    <script>
+                        all += 1
+                    </script>
+                    <div class="cycle">
+                        <div class="one_cycle" onclick="reroute(parseInt('{{ i.id }}'), '{{ i.name }}')" id="active_cycle_{{ i.id }}" onmouseover="rename(1, '{{ i.name }}')"  onmouseout="rename(2, '{{ i.name }}')"></div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="next_place" onclick="next_place(1)">
+                <div>></div>
+            </div>
+        </div>
+
+        <div class="title_cycle" id="rename_name">
+            <center>
+                <div id="cycle_text" class="cycle_text">| Главное</div>
+            </center>
+        </div>
+        <div class="headersss" id="headersss">
+            <div class="progress-container">
+              <div class="progress-bar" id="myBar"></div>
+            </div>
+          </div>
+    </div>
+</div>
+
+<div class="main_scroll" id="main_scroll">
+    <div class="block_scroll_main" id="block_scroll_main">
+        <div class="block_main" id="block_main">
+            <div class="up_route">
+                <div class="route0" id="route0">
+                    <div class="main_text">
+                        <h1 class="">Путешествуйте по уже созданным маршрутам</h1>
+                        <div>Посетите разные периоды в истории Беларуси </div>
+                    </div>
+                    
+                    
+                    <div class="info_routes">
+                        <div class="cycle_image">
+                            <div class="image">
+                                <img src="static/create_images/3b7cf727386439.563644bad0174.jpg" alt="">
+                            </div>
+                        </div>
+                    
+                        <div class="cycle_image">
+                            <div class="image">
+                                <img src="static/create_images/e18ef28e938d0476fbd187144848a74c.jpg" alt="">
+                            </div>
+                        </div>
+                    
+                        <div class="cycle_image">
+                            <div class="image">
+                                <img src="static/create_images/4650_1280x960.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    
+    
+        {% for i in routes %}
+            <div class="block_main">
+                <div class="up_route">
+                    <div class="route" id="route{{ i.id }}">
+                        <div class="page">
+                            <div class="title_button">
+                                <div class="title_route" id="title_route{{ i.id }}">
+                                    {{ i.title }}
+                                </div>
+
+                            </div>
+                
+                            <div class="desc_route">
+                                {{ i.description }} 
+                                <form id="post-form" method="POST" enctype="multipart/form-data" action="Map">
+                                    {% csrf_token %}
+                                    <div class="form-inner">
+                                        <input type='hidden' name='route' value='{{ i.points }}'/>
+                                        <input class="click_input" type="submit" value="Маршрут">
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+                            <div class="route_image">
+                                <img src="{{ i.image|cut:'siteMap/' }}" alt="">
+                            </div>
+                        </div>
+                
+                        <div class="page1">
+                            <div class="places">
+                                {% for a in i.places %}
+                                    <div class="place">
+                                        <div class="title_place">{{ a.name }}</div>
+                                        <div class="image_place">
+                                            <img src="{{ a.image|cut:'siteMap/' }}" alt="">
+                                        </div>
+                                    </div>
+                
+                                {% endfor %}
+                
+                            </div>
+                            <a class="hrefs" onclick="scroll_top('{{ i.id }}')"><div class="up">Вернуться</div></a>
+                
+                        </div>
+                
+                
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="{% static 'scripts/routes.js' %}"></script>
