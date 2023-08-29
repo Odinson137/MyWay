@@ -64,6 +64,55 @@
                     <img src="" alt="">
                 </div>
             </div>
+            <style>
+                #downloadDiv {
+                    text-align: center;
+                    background-color: #fff;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+                  }
+                  
+                  #downloadButton {
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    background-color: #4caf50; /* Измените цвет на зеленый (#4caf50) */
+                    color: #fff;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                  }
+                  
+                  #downloadButton:hover {
+                    background-color: #45a049;
+                  }
+            </style>
+            <div id="downloadDiv">
+                <p>Скачайте наше приложение для путешествий</p>
+                <p>Time to Discover</p>
+                <button id="downloadButton">Скачать</button>
+              </div>
+              <script>
+                document.getElementById("downloadButton").addEventListener("click", function() {
+                    // URL файла для загрузки
+                    var downloadUrl = "static/app-debug.apk"; // замените на фактическую ссылку
+                    
+                    // Создаем ссылку на файл
+                    var link = document.createElement("a");
+                    link.href = downloadUrl;
+                    link.download = "приложение_для_путешествий.apk"; // замените на желаемое имя файла
+                    
+                    // Добавляем ссылку в документ
+                    document.body.appendChild(link);
+                    
+                    // Имитируем клик по ссылке для начала загрузки
+                    link.click();
+                    
+                    // Удаляем ссылку из документа
+                    document.body.removeChild(link);
+                  });
+              </script>
         </div>
 
         <div class="main_block_routes nons" id="main_block_routes">

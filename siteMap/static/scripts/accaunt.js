@@ -169,7 +169,7 @@ function user_place(id) {
                     <img id="user_one_img${i}" src="${images[i]}">
                 </div>
                 <div class="musorka" id='musorka${i}' onclick='click_musorka(${i})'>
-                    <img src="static/create_images/trash-can_115312.png" alt="">
+                    <img src="static/create_images/trash.png" alt="">
                 </div>
                 <div class="gray_block" id='gray_block${i}' onclick="click_image('${id}', '${i}')"></div>
             `
